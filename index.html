@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    />
+    <link rel="stylesheet" href="dycalendar.css" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="sec">
+      <!--toogle-->
+      <div class="toggle"><i class="fas fa-moon "></i><i class="fas fa-sun"></i></div>
+      <!--battery-->
+      <div class="battery-box">
+        <div class="content">
+          <h3>Battery</h3>
+          <div class="batteryShape">
+            <div class="level">
+              <div class="percent-inside">50%</div>
+              <div class="percentage"></div>
+              <div class="clip">
+                <div class="percent-inside">50%</div>
+              </div>
+            </div>
+          </div>
+          <div class="percent">50%</div>
+        </div>
+      </div>
+      <!--calendar-->
+      <div class="box">
+        <div class="container">
+          <div id="dycalendar"></div>
+        </div>
+      </div>
+      <!--link container-->
+      <div class="contain">
+        <ul>
+          <li>
+            <a
+              href="https://www.gamelab.id/dashboard"
+              target="_blank"
+              title="gamelab"
+              ><i class="fas fa-dice"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://siswa.smktelkom-mlg.sch.id/presnow"
+              target="_blank"
+              title="siakad"
+              ><i class="fas fa-thumbtack"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://classroom.google.com/u/1/h"
+              target="_blank"
+              title="classroom"
+              ><i class="fas fa-school"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://mylms.smktelkom-mlg.sch.id/my/"
+              target="_blank"
+              title="LMS"
+              ><i class="fas fa-file-signature"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://web.whatsapp.com/"
+              target="_blank"
+              title="whatsapp web"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+
+      <!--mobile container-->
+      <div class="containmobile">
+        <ul>
+          <li>
+            <a
+              href="https://www.gamelab.id/dashboard"
+              target="_blank"
+              title="gamelab"
+              ><i class="fas fa-dice"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://siswa.smktelkom-mlg.sch.id/presnow"
+              target="_blank"
+              title="siakad"
+              ><i class="fas fa-thumbtack"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://classroom.google.com/u/1/h"
+              target="_blank"
+              title="classroom"
+              ><i class="fas fa-school"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://mylms.smktelkom-mlg.sch.id/my/"
+              target="_blank"
+              title="LMS"
+              ><i class="fas fa-file-signature"></i
+            ></a>
+          </li>
+          <li>
+            <a
+              href="https://web.whatsapp.com/"
+              target="_blank"
+              title="whatsapp web"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <script src="dycalendar.js"></script>
+    <script>
+
+      //media query
+      function myFunction(x) {
+        if (x.matches) {
+          // If media query matches
+          dycalendar.draw({
+            target: "#dycalendar",
+            prevnextbutton: "show",
+          });
+        } else {
+          // If media query nggak matches
+          dycalendar.draw({
+            target: "#dycalendar",
+            type: "month",
+            dayformat: "full",
+            monthformat: "full",
+            highlighttargetdate: true,
+            prevnextbutton: "show",
+          });
+        }
+      }
+
+      var x = window.matchMedia("(max-width: 700px)");
+      myFunction(x); // Call listener function at run time
+      x.addListener(myFunction); // Attach listener function on state changes
+
+
+
+      //battery
+      let percentage = document.querySelector('.percentage');
+      let percent = document.querySelector('.percent');
+      let clip = document.querySelector('.clip');
+      let percentinside = document.querySelectorAll('.percent-inside');
+      navigator.getBattery().then(function(battery){
+        percentage.style.width = battery.level * 100 + '%';
+        clip.style.clipPath = 'polygon(0 0, ' + battery.level * 100 + '%' + '0,' + battery.level * 100 + '%' + '100%, 0 100%';
+        percent.innerHTML = battery.level * 100 + '%';
+        percentinside[0].innerHTML = battery.level * 100 + '%';
+        percentinside[1].innerHTML = battery.level * 100 + '%';
+      });
+
+      //toggle light mode
+      let sec = document.querySelector('.sec');
+      let toggle = document.querySelector('.toggle');
+      toggle.onclick = function(){
+        sec.classList.toggle('light');
+      }
+    </script>
+  </body>
+</html>
